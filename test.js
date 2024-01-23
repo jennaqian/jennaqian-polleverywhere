@@ -58,7 +58,13 @@ const main = async () => {
 
         totalValue += divValue;
         percentages.push({spanValue, divValue})
-        console.log(`${spanValue} : ${divValue}`)
+    }
+
+    // Calculate percentages log the results 
+    for(const {spanValue, divValue} of percentages){
+        const decimalNumber = divValue / totalValue;
+        const percentageValue = (decimalNumber * 100).toFixed(0);
+        console.log(`${spanValue} : ${percentageValue}%, ${divValue} votes out of ${totalValue}`)
     }
 
 };
