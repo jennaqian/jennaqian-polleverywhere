@@ -1,6 +1,11 @@
 const puppeteer = require('puppeteer')
 
 const poll = "https://pollev.com/qainterview880"
+const nameSelector = 'input[id="participant_presenter_relationship_screen_name"]'
+const nameText = "Jenna Qian"
+const continueSelector = 'button[data-controller="material--mdc-ripple"]'
+const clickBtnSelector = 'button[class="component-response-multiple-choice__option__vote"]'
+
 
 const main = async () => {
     // Launch browser with UI
@@ -13,10 +18,10 @@ const main = async () => {
     await page.goto(poll, {waitUntil: "networkidle0"});
 
     // Enter name and wait 2 seconds 
-    await page.type('input[id="participant_presenter_relationship_screen_name"]', 'Jenna Qian')
+    await page.type(nameSelector, nameText)
 
     // Click continue to bypass modal 
-    await page.click('button[data-controller="material--mdc-ripple"]')
+    await page.click(continueSelector)
 
     // Click on the button "Malevolent" for word of the day
     await page.evaluate((selector)=> {
@@ -27,7 +32,7 @@ const main = async () => {
         } else {
             console.log('There are less than three buttons matching the selector.')
         }
-    }, 'button[class="component-response-multiple-choice__option__vote"]')
+    }, clickBtnSelector)
 
 }
 
