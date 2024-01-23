@@ -6,7 +6,7 @@ const nameSelector = 'input[id="participant_presenter_relationship_screen_name"]
 const nameText = "Jenna Qian";
 const continueSelector = 'button[data-controller="material--mdc-ripple"]';
 const clickBtnSelector = 'button[class="component-response-multiple-choice__option__vote"]';
-
+const unclickBtnSelector = 'button[class="component-response-multiple-choice__option__undo"]'
 
 const main = async () => {
     // Launch browser with UI
@@ -25,6 +25,24 @@ const main = async () => {
             // Click continue to bypass modal 
             await page.click(continueSelector)
         
+            // Verified buttons are clickable and correlate with the response page
+            await page.evaluate(async (clickSelector, unclickSelector) => {
+                const clickButtons = document.querySelectorAll(clickSelector);
+                const unclickButtons = document.querySelectorAll(unclickSelector);
+
+                for(let i = 0; i < 4; i++){
+                    const clickButton = clickButtons[i];
+                    const unclickButton = unclickButtons[i];
+
+                    clickButton.click();
+
+                    unclickButton.click();
+                }
+
+                console.log('All buttons have been clicked')
+            }, clickBtnSelector, unclickBtnSelector)
+
+
             // Click on the button "Malevolent" for word of the day
             // await page.evaluate((selector)=> {
             //     const buttons = document.querySelectorAll(selector)
