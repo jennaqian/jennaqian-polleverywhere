@@ -12,6 +12,11 @@ const main = async () => {
     // Navigate to poll page 
     await page.goto(poll, {waitUntil: "networkidle0"});
 
+    // Enter name and wait 2 seconds 
+    await page.type('input[id="participant_presenter_relationship_screen_name"]', 'Jenna Qian')
+
+    // Click continue to bypass modal 
+    await page.click('button[data-controller="material--mdc-ripple"]')
 }
 
 main();
